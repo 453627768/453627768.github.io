@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body,html,#big-box{
+				width: 100%;
+				height: 100%;
+			}
+			.box{
+				border: 1px solid black;
+				width: 18%;
+				height: 40%;
+				position: relative;
+				float: left;
+				top: 15%;
+				left: 5%;
+			}
+			.box>img{
+				width: 90%;
+				height: 90%;
+				position: absolute;
+				top: 5%;
+				left: 5%;
+				transform-style: preserve-3d;
+  				transition: transform 0.6s;
+			}
+			.box>img.flipped {
+			  	transform: rotateY( 180deg );
+			}
+			.box>img.flipped360 {
+			  	transform: rotateY( 360deg );
+			}         
+			.img-bg{
+				z-index: 2;
+			}
+			.img-kp{
+				transform: rotateY( 180deg );			
+			}
+			.ui-multiselect{
+				position: absolute;
+    			top: 25px;
+    			left: 40%;
+    			width: 15%!important;
+    			height: 27px;
+    			font-size: 18px;
+    			color: #1c94c4;
+    			background: #f6f6f6;
+    			font-weight: bold;
+    			border-radius: 4px;
+    			border:1px solid #ccc
+    		}
+    		.ui-multiselect:hover{
+    			border: 1px solid #fbcb09;
+    			color: #c77405;
+    			background: #fdf5ce;
+    		}
+    		.ui-helper-reset>li{
+    			list-style: none;
+    		}
+    		.ui-multiselect-menu{
+    			background: white;
+    			border: 1px solid #ccc;
+    			border-top: none;
+    		}
+    		.ui-multiselect-checkboxes{
+    			left: 0px!important;
+    			top: 10px!important;
+    		}
+    		.ui-multiselect-checkboxes>li:hover{
+    			border: 1px solid #fbcb09;
+    			color: #c77405;
+    			background: #fdf5ce;
+    		}
+    		#choupai{
+    			position: absolute;
+    			width: 50px;
+    			top: 25px;
+    			left: 56%;
+			    height: 27px;
+			    border: 1px solid #ccc;
+			    text-align: center;
+			    border-radius: 4px;
+			    background: #0589d1;
+			    color: white;
+			    cursor: pointer;
+    		}
+    		#reset{
+    			position: absolute;
+    			width: 50px;
+    			top: 25px;
+    			left: 60%;
+			    height: 27px;
+			    border: 1px solid #ccc;
+			    text-align: center;
+			    border-radius: 4px;
+			    background: #0589d1;
+			    color: white;
+			    cursor: pointer;
+    		}
+		</style>
+		<link rel="stylesheet" type="text/css" href="multiselectSrc/jquery.multiselect.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script type="text/javascript" src="ui/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="ui/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="multiselectSrc/jquery.multiselect.js"></script>
+	</head>
+	<body>
+		<select id="select-name">
+			
+		</select>
+		<p id="choupai">抽牌</p>
+		<p id="reset">重置</p>
+		<div id="big-box">
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+		</div>
+		<script type="text/javascript">
+			var nameArr=[];
+			var num=0;
+			if(!localStorage.nameArr){
+				var allArr=["小平湖丶打桩机","金兰丶打桩机","广渠门外丶打桩机","海狗丶打桩机","辖神庙丶打桩机","大保健丶打桩机","呼伦贝尔丶打桩机","盘州红果丶打桩机","沙湾丶打桩机","明湖路丶打桩机"];
+				allArr.forEach(function(item){
+					$("#select-name").append("<option>"+item+"</option>");
+				});
+			}else{
+				console.log(localStorage.nameArr);
+				$("#select-name").html("");
+				JSON.parse(localStorage.nameArr).forEach(function(item){
+					$("#select-name").append("<option>"+item+"</option>");
+				});
+			};
+			$("#select-name").multiselect({
+		        noneSelectedText: "==请选择==",
+		        checkAllText: "全选",
+		        uncheckAllText: '全不选',
+		        selectedList:2
+			});
+			//数组乱序
+			function shuffle(arr) {
+				var res = [];
+				for (var i = 0, len = arr.length; i < len; i++) {
+				  var j = Math.floor(Math.random() * arr.length);
+				  res[i] = arr[j];
+				  arr.splice(j, 1);
+				}
+				return res;
+			};
+			$(".box").click(function(){
+				if(num==1){
+					/*$(this).find(".img-bg").stop().animate({'width':0},200,function(){
+						$(this).find(".img-kp").next().stop().animate({'width':"90%"});
+					});*/
+					$(this).find(".img-bg").removeClass("flipped").addClass("flipped").hide().next().removeClass("flipped360").addClass("flipped360").show();
+				}
+				
+			});
+			
+			$(".ui-multiselect-checkboxes").css("width",$(".ui-multiselect").width());
+			$("#choupai").one("click",function(){
+				$("#choupai").css("background","#ccc");
+				nameArr = $("select").multiselect("getChecked").map(function(){
+			        return this.value;   
+				}).get();
+				localStorage.nameArr=JSON.stringify(nameArr);;
+				nameArr=shuffle(nameArr);
+				console.log(typeof  JSON.parse(localStorage.nameArr));
+				for (var i=0;i<nameArr.length;i++) {
+					$(".box").eq(i).find(".img-kp").attr("src","kapian/"+nameArr[i]+".jpg");
+				};
+				num=1;
+				fanpai();
+			});
+			function fanpai(){
+				var number=0;
+				var timer=setInterval(function(){
+					if(number>nameArr.length){
+						clearInterval(timer);
+					};
+					$(".box").eq(number).trigger("click");
+					number++;
+				},200);
+			};
+			$(".ui-multiselect-all>span").trigger("click");
+			
+			$("#reset").click(function(){
+				localStorage.nameArr="";
+				console.log(111);
+			});
+		</script>
+	</body>
+</html>
