@@ -12,8 +12,11 @@
 				width: 100%;
 				height: 100%;
 			}
+			#big-box{
+				background: url(kapian/big-bg.jpg);
+				background-size: cover;)
+			}
 			.box{
-				border: 1px solid black;
 				width: 18%;
 				height: 40%;
 				position: relative;
@@ -176,6 +179,14 @@
 				nameArr = $("select").multiselect("getChecked").map(function(){
 			        return this.value;   
 				}).get();
+				if(nameArr.length%2==0){
+					$(".box").css("width",180/nameArr.length+"%");
+				}else{
+					$(".box").css("width",180/(nameArr.length+1)+"%")
+				};
+				for (var i=nameArr.length;i<10;i++) {
+					$(".box").eq(i).css("display","none");
+				}
 				localStorage.nameArr=JSON.stringify(nameArr);;
 				nameArr=shuffle(nameArr);
 				console.log(typeof  JSON.parse(localStorage.nameArr));
@@ -198,7 +209,8 @@
 			$(".ui-multiselect-all>span").trigger("click");
 			
 			$("#reset").click(function(){
-				localStorage.nameArr="";
+				localStorage.clear();
+				location.reload();
 				console.log(111);
 			});
 		</script>
