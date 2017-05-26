@@ -1,56 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 	<head>
-		<meta charset="UTF-8">
-		<title></title>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>bootstrap布局</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 		<style>
-			*{
-				margin: 0;
-				padding: 0;
-			}
-			body,html,#big-box{
-				width: 100%;
+			body,html{
 				height: 100%;
 			}
+			body{
+				background:url(img/big-bg.jpg);
+				background-size: cover;
+			}
 			#big-box{
-				background: url(kapian/big-bg.jpg);
-				background-size: cover;)
+				height: 100%;
 			}
-			.box{
-				width: 18%;
+			.big-box-header{
+				padding: 25px 0 0 55%;
+				height: 10%;
+			}
+			#big-box .box{
 				height: 40%;
-				position: relative;
-				float: left;
-				top: 15%;
-				left: 5%;
 			}
-			.box>img{
-				width: 90%;
-				height: 90%;
-				position: absolute;
-				top: 5%;
-				left: 5%;
-				transform-style: preserve-3d;
-  				transition: transform 0.6s;
-			}
-			.box>img.flipped {
-			  	transform: rotateY( 180deg );
-			}
-			.box>img.flipped360 {
-			  	transform: rotateY( 360deg );
-			}         
-			.img-bg{
-				z-index: 2;
-			}
-			.img-kp{
-				transform: rotateY( 180deg );			
+			#big-box .box>div{
+				height:100%;
 			}
 			.ui-multiselect{
 				position: absolute;
     			top: 25px;
-    			left: 40%;
+    			left: 35%;
     			width: 15%!important;
-    			height: 27px;
+    			height: 34px;
     			font-size: 18px;
     			color: #1c94c4;
     			background: #f6f6f6;
@@ -80,59 +64,98 @@
     			color: #c77405;
     			background: #fdf5ce;
     		}
-    		#choupai{
-    			position: absolute;
-    			width: 50px;
-    			top: 25px;
-    			left: 56%;
-			    height: 27px;
-			    border: 1px solid #ccc;
-			    text-align: center;
-			    border-radius: 4px;
-			    background: #0589d1;
-			    color: white;
-			    cursor: pointer;
-    		}
-    		#reset{
-    			position: absolute;
-    			width: 50px;
-    			top: 25px;
-    			left: 60%;
-			    height: 27px;
-			    border: 1px solid #ccc;
-			    text-align: center;
-			    border-radius: 4px;
-			    background: #0589d1;
-			    color: white;
-			    cursor: pointer;
-    		}
+    		.box>div>img{
+				width: 96%;
+				height: 90%;
+				position: absolute;
+				top: 5%;
+				left: 2%;
+				transform-style: preserve-3d;
+  				transition: transform 0.6s;
+			}
+			.box>div>img.flipped {
+			  	transform: rotateY( 180deg );
+			}
+			.box>div>img.flipped360 {
+			  	transform: rotateY( 360deg );
+			}         
+			.img-bg{
+				z-index: 2;
+			}
+			.img-kp{
+				transform: rotateY( 180deg );			
+			}
 		</style>
-		<link rel="stylesheet" type="text/css" href="multiselectSrc/jquery.multiselect.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
-		<script type="text/javascript" src="js/jquery.js" ></script>
-		<script type="text/javascript" src="ui/jquery.ui.core.js"></script>
-		<script type="text/javascript" src="ui/jquery.ui.widget.js"></script>
-		<script type="text/javascript" src="multiselectSrc/jquery.multiselect.js"></script>
 	</head>
 	<body>
-		<select id="select-name">
-			
-		</select>
-		<p id="choupai">抽牌</p>
-		<p id="reset">重置</p>
-		<div id="big-box">
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
-			<div class="box"><img class="img-bg" src="kapian/bg.jpg"><img class="img-kp" ></div>
+		<div class="container" id="big-box">
+			<div class="row big-box-header">
+				<select class="col-md-3 col-md-offset-2" id="select-name">
+				</select>
+			  	<button type="button" class="btn btn-primary" id="choupai" style="margin-left: 10px;">抽牌</button>
+			  	<button type="button" class="btn btn-primary" id="refresh"><!--data-toggle="modal" data-target="#modal-shangchuan" data-backdrop="static"-->重新抽牌</button>
+			  	<button type="button" class="btn btn-primary" id="reset">重置</button>
+			</div>
+			<div class="box row">
+				<div class="col-md-2 col-md-offset-1"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+			</div>
+			<div class="box row">
+				<div class="col-md-2 col-md-offset-1"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" ></div>
+			</div>
 		</div>
-		<script type="text/javascript">
+		<!--上传图片的模态框-->
+		<!--<div class="modal" id="modal-shangchuan">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <span class="close" data-dismiss="modal"></span>
+		                <p class="modal-title text-center">添加新打桩机</p>
+		            </div>
+		            <div class="modal-body">
+		                <div class="form-horizontal">  <!--.container
+		                    <div class="form-group">
+		                        <div class="col-xs-12">
+		                            <form enctype="multipart/form-data" method="post" id='buttonUplod' name="Upload_form">
+		                                <div class="form-group">
+										    <label for="inputName" class="col-sm-3 control-label">新增打桩机名字</label>
+										    <div class="col-sm-9">
+										      <input type="text" class="form-control" id="inputName" placeholder="请输入新增打桩机名字">
+										    </div>
+										</div>
+										<div class="form-group">
+										    <label for="inputPic" class="col-sm-3 control-label">新增打桩机图片</label>
+										    <div class="upload-fake col-sm-9">
+			                                    <input type="file"  class="btn btn-block" name="uploadname" id="inputPic" name="fileup" value="{{Select_file}}" onchange="changFileName(this)"/>
+			                                </div>
+										</div>
+		                                <span id="currect-select-name"></span>
+		                                <input type="button" id='button' class="btn btn-block btn-primary" value="确定" data-dismiss="modal">
+		                            </form>                          
+		                        </div>
+		                    </div>
+							<div class="progress" style="display: none;">
+							    <div class="progress-bar"></div>
+							</div>                    
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>-->
+		
+		<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/jquery.multiselect.js"></script>
+		<script>
 			var nameArr=[];
 			var num=0;
 			if(!localStorage.nameArr){
@@ -163,7 +186,7 @@
 				}
 				return res;
 			};
-			$(".box").click(function(){
+			$(".box>div").click(function(){
 				if(num==1){
 					/*$(this).find(".img-bg").stop().animate({'width':0},200,function(){
 						$(this).find(".img-kp").next().stop().animate({'width':"90%"});
@@ -179,19 +202,33 @@
 				nameArr = $("select").multiselect("getChecked").map(function(){
 			        return this.value;   
 				}).get();
-				if(nameArr.length%2==0){
-					$(".box").css("width",180/nameArr.length+"%");
-				}else{
-					$(".box").css("width",180/(nameArr.length+1)+"%")
-				};
-				for (var i=nameArr.length;i<10;i++) {
-					$(".box").eq(i).css("display","none");
+				if(nameArr.length==1||nameArr.length==2){
+					$("#big-box>.box:nth-child(2)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-5");
+					$("#big-box>.box:nth-child(3)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-5");
+				}else if(nameArr.length==3||nameArr.length==4){
+					$("#big-box>.box:nth-child(2)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-4");
+					$("#big-box>.box:nth-child(3)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-4");
+				}else if(nameArr.length==5||nameArr.length==6){
+					$("#big-box>.box:nth-child(2)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-3");
+					$("#big-box>.box:nth-child(3)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-3");
+				}else if(nameArr.length==7||nameArr.length==8){
+					$("#big-box>.box:nth-child(2)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-2");
+					$("#big-box>.box:nth-child(3)>div").eq(0).removeClass("col-md-offset-1").addClass("col-md-offset-2");
+				}
+				for (var i=Math.ceil(nameArr.length/2);i<5;i++) {
+					$("#big-box>.box:nth-child(2)>div").eq(i).css("display","none");
+					$("#big-box>.box:nth-child(3)>div").eq(i).css("display","none");
 				}
 				localStorage.nameArr=JSON.stringify(nameArr);;
 				nameArr=shuffle(nameArr);
 				console.log(typeof  JSON.parse(localStorage.nameArr));
-				for (var i=0;i<nameArr.length;i++) {
-					$(".box").eq(i).find(".img-kp").attr("src","kapian/"+nameArr[i]+".jpg");
+				for (var i=0;i<Math.ceil(nameArr.length/2);i++) {
+					$("#big-box>.box:nth-child(2)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
+					//$("#big-box>.box:nth-child(3)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
+				};
+				for (var i=Math.ceil(nameArr.length/2);i<nameArr.length;i++) {
+					//$("#big-box>.box:nth-child(2)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
+					$("#big-box>.box:nth-child(3)>div").eq(i-Math.ceil(nameArr.length/2)).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
 				};
 				num=1;
 				fanpai();
@@ -202,7 +239,7 @@
 					if(number>nameArr.length){
 						clearInterval(timer);
 					};
-					$(".box").eq(number).trigger("click");
+					$(".box>div").eq(number).trigger("click");
 					number++;
 				},200);
 			};
@@ -212,6 +249,9 @@
 				localStorage.clear();
 				location.reload();
 				console.log(111);
+			});
+			$("#refresh").click(function(){
+				location.reload();
 			});
 		</script>
 	</body>
