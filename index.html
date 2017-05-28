@@ -71,18 +71,17 @@
     			margin: 5px 10px;
     		}
     		.box>div>.img-bg{
-    			width: 106%;
-    			height: 104%;
-    			border-radius: 12%;
-    			top: -2%;
-    			left: -3%;
+    			width: 100%;
+    			height: 100%;
+    			top: 0;
+    			left: 0;
     			
     		}
     		.box>div>img{
-				width: 131%;
-				height: 121%;
-				top: -10%;
-				left: -15%;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0%;
 				position: absolute;
 				transform-style: preserve-3d;
   				transition: transform 0.6s;
@@ -111,18 +110,18 @@
 			  	<button type="button" class="btn btn-primary" id="reset">重置</button>
 			</div>
 			<div class="box row">
-				<div class="col-md-2 col-md-offset-1"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/呼伦贝尔丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/小平湖丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/沙湾丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/金兰丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/海狗丶打桩机.jpg"></div>
+				<div class="col-md-2 col-md-offset-1"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/呼伦贝尔丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/小平湖丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/沙湾丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/金兰丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/海狗丶打桩机.png"></div>
 			</div>
 			<div class="box row">
-				<div class="col-md-2 col-md-offset-1"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/盘州红果丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/大保健丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/辖神庙丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/广渠门外丶打桩机.jpg"></div>
-				<div class="col-md-2"><img class="img-bg" src="img/bg.jpg"><img class="img-kp" src="img/明湖路丶打桩机.jpg"></div>
+				<div class="col-md-2 col-md-offset-1"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/盘州红果丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/大保健丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/辖神庙丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/广渠门外丶打桩机.png"></div>
+				<div class="col-md-2"><img class="img-bg" src="img/bg.png"><img class="img-kp" src="img/明湖路丶打桩机.png"></div>
 			</div>
 		</div>
 		<!--上传图片的模态框-->
@@ -173,7 +172,7 @@
 			var nameArr=[];
 			var num=0;
 			if(!localStorage.nameArr){
-				var allArr=["小平湖丶打桩机","金兰丶打桩机","广渠门外丶打桩机","海狗丶打桩机","辖神庙丶打桩机","大保健丶打桩机","呼伦贝尔丶打桩机","盘州红果丶打桩机","沙湾丶打桩机","明湖路丶打桩机","深圳湾丶打桩机","梅溪湖丶打桩机"];
+				var allArr=["小平湖丶打桩机","金兰丶打桩机","广渠门外丶打桩机","海狗丶打桩机","辖神庙丶打桩机","大保健丶打桩机","呼伦贝尔丶打桩机","盘州红果丶打桩机","沙湾丶打桩机","明湖路丶打桩机","深圳湾丶打桩机","梅溪湖丶打桩机","青葡萄丶打桩机","亚古兽丶打桩机","皮卡丘丶打桩机"];
 				allArr.forEach(function(item){
 					$("#select-name").append("<option>"+item+"</option>");
 				});
@@ -237,12 +236,12 @@
 				nameArr=shuffle(nameArr);
 				console.log(typeof  JSON.parse(localStorage.nameArr));
 				for (var i=0;i<Math.ceil(nameArr.length/2);i++) {
-					$("#big-box>.box:nth-child(2)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
+					$("#big-box>.box:nth-child(2)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".png");
 					//$("#big-box>.box:nth-child(3)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
 				};
 				for (var i=Math.ceil(nameArr.length/2);i<nameArr.length;i++) {
 					//$("#big-box>.box:nth-child(2)>div").eq(i).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
-					$("#big-box>.box:nth-child(3)>div").eq(i-Math.ceil(nameArr.length/2)).find(".img-kp").attr("src","img/"+nameArr[i]+".jpg");
+					$("#big-box>.box:nth-child(3)>div").eq(i-Math.ceil(nameArr.length/2)).find(".img-kp").attr("src","img/"+nameArr[i]+".png");
 				};
 				num=1;
 				fanpai();
