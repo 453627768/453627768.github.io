@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<title>烟花</title>
+	<style>
+		body{background: black;overflow: hidden;}
+		.box{width: 20px;height: 20px;position: absolute;border-radius:50%;}
+		.spark {position: absolute;width: 20px;height: 20px;border-radius:50%;}
+	</style>
+	</head>
+	<body>
+	</body>
+</html>
+	<script type="text/javascript">
+		/*
+		烟花效果
+		1）飞入
+			一个元素从底部往鼠标点击位置移动的效果
+				1>给document绑定点击事件
+				2>鼠标点击位置：x=e.clientX,y=e.clientY
+				3>创建一个元素
+		2）爆炸
+			清除烟花
+		3）消失
+
+		 */
+		//1）飞入
+		//1>给document绑定点击事件
+		var num=0;
+		var arr=[{x:76,y:111},{x:95,y:113},{x:112,y:110},{x:129,y:112},{x:148,y:113},{x:112,y:87},{x:111,y:65},{x:111,y:43},{x:113,y:129},{x:113,y:150},{x:114,y:170},{x:113,y:191},{x:114,y:210},{x:114,y:232},{x:93,y:136},{x:86,y:155},{x:74,y:171},{x:63,y:190},{x:45,y:202},{x:130,y:141},{x:140,y:158},{x:156,y:174},{x:171,y:189},{x:246,y:126},{x:188,y:70},{x:207,y:68},{x:227,y:70},{x:247,y:70},{x:268,y:70},{x:261,y:90},{x:243,y:101},{x:223,y:113},{x:202,y:122},{x:225,y:126},{x:267,y:126},{x:286,y:127},{x:305,y:127},{x:307,y:143},{x:307,y:160},{x:308,y:180},{x:306,y:199},{x:306,y:220},{x:306,y:240},{x:286,y:229},{x:264,y:222},{x:240,y:141},{x:232,y:159},{x:222,y:175},{x:271,y:144},{x:264,y:163},{x:254,y:180},{x:242,y:196},{x:61,y:279},{x:79,y:289},{x:97,y:302},{x:51,y:351},{x:71,y:351},{x:92,y:352},{x:52,y:425},{x:169,y:323},{x:169,y:377},{x:167,y:359},{x:189,y:325},{x:312,y:315},{x:262,y:384},{x:242,y:421},{x:316,y:420},{x:264,y:335},{x:289,y:292},{x:293,y:422},{x:203,y:358},{x:311,y:292},{x:151,y:343},{x:290,y:336},{x:243,y:338},{x:168,y:397},{x:240,y:400},{x:209,y:324},{x:243,y:316},{x:315,y:393},{x:150,y:322},{x:192,y:344},{x:167,y:417},{x:89,y:408},{x:169,y:342},{x:173,y:276},{x:141,y:360},{x:263,y:424},{x:134,y:379},{x:314,y:339},{x:241,y:379},{x:315,y:370},{x:290,y:386},{x:243,y:360},{x:171,y:301},{x:129,y:321},{x:247,y:292},{x:214,y:375},{x:268,y:292},{x:73,y:418}]
+		document.onclick=function(e){
+			e=e||window.event;
+			//记录当前坐标,鼠标点击位置：x=e.clientX,y=e.clientY
+			var coord={x:e.clientX,y:e.clientY};
+			console.log(coord.x);
+			//点一下就new一个烟花
+			var f=new Fire();
+			f.init(coord);
+			f.move(coord);
+		}
+		//烟花构造函数
+		function Fire(){
+			//随机背景色
+			this.bgColor="rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)
+			+","+parseInt(Math.random()*256)+")";
+			this.temp=parseInt(window.innerHeight);
+			//点击的坐标
+			//this.coord=coord;
+			
+			//this.height=window.innerHeight;
+		}
+		//烟花初始化方法
+		Fire.prototype.init=function(coord){
+			var box=document.createElement("div");
+			box.className="box";
+			box.style.top=this.temp+"px";
+			box.style.backgroundColor=this.bgColor;
+			box.style.left=coord.x+"px";
+			document.body.appendChild(box);
+			//通过this传递box
+			this.ele=box;
+		}
+		//烟花移动方法
+		Fire.prototype.move=function(coord){
+			var that=this;
+			var current=that.ele.offsettop;
+			var target=coord.y;
+			that.ele.timer=setInterval(function(){
+				that.temp-=10;
+				if(that.temp<=target){
+					clearInterval(that.ele.timer);
+					document.body.removeChild(that.ele);
+					//在运动到目标地址后生成炮灰
+					for (var i=0;i<100;i++) {
+						var s=new Spark();
+						s.index=i;
+						s.init(coord);
+						s.move(coord);
+					}
+					//f.remove();
+				}else{
+				that.ele.style.top=that.temp+"px";
+				}
+			},30)
+		}
+		//完成后移除
+		/*Fire.prototype.remove=function(){
+			document.body.removeChild(this.ele);
+		}*/
+		//随机数函数
+		function randomNum(min,max){
+			var res=parseInt(Math.random()*(max-min+1))+min;
+			return res;
+		}
+		//炮灰构造函数
+		function Spark(){
+			//随机速度
+			this.speedX=randomNum(-20,20);
+			console.log(this.speedX);
+			this.speedY=randomNum(-20,20);
+			/*this.speedX=5;
+			this.speedY=5;*/
+			//炮灰颜色
+			this.bgColor="rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)
+			+","+parseInt(Math.random()*256)+")";
+		}
+		//炮灰原型
+		//初始化
+		Spark.prototype.init=function(coord){
+			var spa=document.createElement("div");
+			spa.className="spark";
+			spa.style.top=coord.y+"px";
+			spa.style.left=coord.x+"px";
+			spa.style.backgroundColor=this.bgColor;
+			document.body.appendChild(spa);
+			this.spark=spa;
+		}
+		//运动
+		Spark.prototype.move=function(coord){
+			var that=this;
+			that.spark.timer=setInterval(function(){
+				var currentX=that.spark.offsetLeft;
+				var currentY=that.spark.offsetTop;
+				currentX+=that.speedX;
+				currentY+=that.speedY;
+				if(currentX<-that.spark.offsetWidth||currentX>window.innerWidth+that.spark.offsetWidth||
+					currentY<-that.spark.offsetHeight||currentY>window.innerHeight+that.spark.offsetHeight){
+					clearInterval(that.spark.timer);
+					//that.spark.parentNode.removeChild(that.spark);
+					that.moveTo(arr[that.index].x,arr[that.index].y)
+				}else{
+				that.spark.style.left=currentX+"px";
+				that.spark.style.top=currentY+"px";
+				}
+			},30)
+		}
+		Spark.prototype.moveTo=function(x,y){
+			this.spark.style.left=x+"px";
+			this.spark.style.top=y+"px";
+		}
+		/*Spark.prototype.remove=function(){
+			this.spark.parentNode.removeChild(this.spark);
+		}*/
+	</script>
