@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<title>烟花</title>
+	<style>
+		body{background: black;overflow: hidden;}
+		.box{width: 20px;height: 20px;position: absolute;border-radius:50%;}
+		.spark {position: absolute;width: 20px;height: 20px;border-radius:50%;}
+	</style>
+	</head>
+	<body>
+	</body>
+</html>
+	<script type="text/javascript">
+		/*
+		烟花效果
+		1）飞入
+			一个元素从底部往鼠标点击位置移动的效果
+				1>给document绑定点击事件
+				2>鼠标点击位置：x=e.clientX,y=e.clientY
+				3>创建一个元素
+		2）爆炸
+			清除烟花
+		3）消失
+
+		 */
+		//1）飞入
+		//1>给document绑定点击事件
+		var num=0;
+		var arr=[{x:254,y:241},{x:267,y:257},{x:190,y:279},{x:212,y:280},{x:234,y:280},{x:256,y:279},{x:281,y:280},{x:302,y:281},{x:325,y:279},{x:346,y:279},{x:187,y:301},{x:350,y:299},{x:218,y:318},{x:185,y:322},{x:353,y:320},{x:204,y:338},{x:241,y:330},{x:254,y:348},{x:275,y:359},{x:236,y:303},{x:302,y:360},{x:311,y:338},{x:290,y:314},{x:273,y:334},{x:237,y:366},{x:337,y:344},{x:217,y:389},{x:242,y:393},{x:266,y:394},{x:289,y:394},{x:312,y:394},{x:212,y:414},{x:213,y:435},{x:333,y:397},{x:334,y:420},{x:323,y:492},{x:242,y:438},{x:268,y:435},{x:294,y:435},{x:316,y:437},{x:278,y:378},{x:277,y:415},{x:278,y:455},{x:280,y:476},{x:225,y:495},{x:249,y:494},{x:279,y:491},{x:304,y:491},{x:332,y:472},{x:347,y:496}]
+		document.onclick=function(e){
+			e=e||window.event;
+			//记录当前坐标,鼠标点击位置：x=e.clientX,y=e.clientY
+			var coord={x:e.clientX,y:e.clientY};
+			console.log(coord.x);
+			//点一下就new一个烟花
+			var f=new Fire();
+			f.init(coord);
+			f.move(coord);
+		}
+		//烟花构造函数
+		function Fire(){
+			//随机背景色
+			this.bgColor="rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)
+			+","+parseInt(Math.random()*256)+")";
+			this.temp=parseInt(window.innerHeight);
+			//点击的坐标
+			//this.coord=coord;
+			
+			//this.height=window.innerHeight;
+		}
+		//烟花初始化方法
+		Fire.prototype.init=function(coord){
+			var box=document.createElement("div");
+			box.className="box";
+			box.style.top=this.temp+"px";
+			box.style.backgroundColor=this.bgColor;
+			box.style.left=coord.x+"px";
+			document.body.appendChild(box);
+			//通过this传递box
+			this.ele=box;
+		}
+		//烟花移动方法
+		Fire.prototype.move=function(coord){
+			var that=this;
+			var current=that.ele.offsettop;
+			var target=coord.y;
+			that.ele.timer=setInterval(function(){
+				that.temp-=10;
+				if(that.temp<=target){
+					clearInterval(that.ele.timer);
+					document.body.removeChild(that.ele);
+					//在运动到目标地址后生成炮灰
+					for (var i=0;i<50;i++) {
+						var s=new Spark();
+						s.index=i;
+						s.init(coord);
+						s.move(coord);
+					}
+					//f.remove();
+				}else{
+				that.ele.style.top=that.temp+"px";
+				}
+			},30)
+		}
+		//完成后移除
+		/*Fire.prototype.remove=function(){
+			document.body.removeChild(this.ele);
+		}*/
+		//随机数函数
+		function randomNum(min,max){
+			var res=parseInt(Math.random()*(max-min+1))+min;
+			return res;
+		}
+		//炮灰构造函数
+		function Spark(){
+			//随机速度
+			this.speedX=randomNum(-20,20);
+			console.log(this.speedX);
+			this.speedY=randomNum(-20,20);
+			/*this.speedX=5;
+			this.speedY=5;*/
+			//炮灰颜色
+			this.bgColor="rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)
+			+","+parseInt(Math.random()*256)+")";
+		}
+		//炮灰原型
+		//初始化
+		Spark.prototype.init=function(coord){
+			var spa=document.createElement("div");
+			spa.className="spark";
+			spa.style.top=coord.y+"px";
+			spa.style.left=coord.x+"px";
+			spa.style.backgroundColor=this.bgColor;
+			document.body.appendChild(spa);
+			this.spark=spa;
+		}
+		//运动
+		Spark.prototype.move=function(coord){
+			var that=this;
+			that.spark.timer=setInterval(function(){
+				var currentX=that.spark.offsetLeft;
+				var currentY=that.spark.offsetTop;
+				currentX+=that.speedX;
+				currentY+=that.speedY;
+				if(currentX<-that.spark.offsetWidth||currentX>window.innerWidth+that.spark.offsetWidth||
+					currentY<-that.spark.offsetHeight||currentY>window.innerHeight+that.spark.offsetHeight){
+					clearInterval(that.spark.timer);
+					//that.spark.parentNode.removeChild(that.spark);
+					that.moveTo(arr[that.index].x,arr[that.index].y)
+				}else{
+				that.spark.style.left=currentX+"px";
+				that.spark.style.top=currentY+"px";
+				}
+			},30)
+		}
+		Spark.prototype.moveTo=function(x,y){
+			this.spark.style.left=x+"px";
+			this.spark.style.top=y+"px";
+		}
+		/*Spark.prototype.remove=function(){
+			this.spark.parentNode.removeChild(this.spark);
+		}*/
+	</script>
