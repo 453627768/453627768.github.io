@@ -79,7 +79,7 @@ html {
 }
 
 #bgLuckyDrawEnd.bg {
-    background: url(img/bgLight.png) no-repeat center center;
+    background: url("../img/bgLight.png") no-repeat center center;
     -webkit-animation: lightAnimation 5s infinite linear;
     -moz-animation: lightAnimation 5s infinite linear;
     -o-animation: lightAnimation 5s infinite linear;
@@ -164,7 +164,7 @@ body {
 }
 
 body > div {
-    background: url(img/bg.png) no-repeat;
+    background: url("../img/bg.png") no-repeat;
     position: absolute;
     top: 50%;
     left: 50%;
