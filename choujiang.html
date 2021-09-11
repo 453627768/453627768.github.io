@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery公司年会抽奖</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="js/lib/common.js"></script>
+    <script src="js/index.js"></script>
+    <style>
+        .header{
+            position: relative;
+        }
+        .header-text{
+            position: absolute;
+            top: 187px;
+            left: 279px;
+            color: #FFC21C;
+            background: #1D6DCD;
+            width: 255px;
+            height: 43px;
+            line-height: 43px;
+            font-family: "微软雅黑";
+            font-size: 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <header class="header">
+        <div></div>
+        <div class="header-text">2109班抽取程序</div>
+    </header>
+    <section>
+        <div class="hide" id="luckyDrawing"><input id="showName" readonly type="text"></div>
+        <div class="hide" id="result">
+            <div></div>
+        </div>
+    </section>
+    <footer>
+        <div><input type="number" id="txtNum" value="" placeholder="请输入中奖人数">
+            <button id="btnStart">开始</button>
+            <button id="btnReset">&nbsp;</button>
+        </div>
+    </footer>
+
+</div>
+<div id="bgLuckyDrawEnd"></div>
+<div id="iconDiv" class="animated fadeIn"><span><img src="css/img/icon/01.png"> </span><span><img
+        src="css/img/icon/02.png"> </span><span><img src="css/img/icon/03.png"> </span><span><img
+        src="css/img/icon/04.png"> </span><span><img src="css/img/icon/05.png"> </span><span><img
+        src="css/img/icon/06.png"> </span></div>
+</body>
+</html>
